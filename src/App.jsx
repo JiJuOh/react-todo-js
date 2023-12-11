@@ -1,6 +1,7 @@
 import React from 'react'
 import DefaultLayout from './layouts/DefaultLayout'
 import TodoHeader from './components/todos/TodoHeader'
+import TodoBody from './components/todos/TodoBody'
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
         </header>
         <section>
           <TodoHeader />
-          {/* <TodoBody.jsx /> */}
+          <TodoBody />
         </section>
       </div>
     </DefaultLayout>
