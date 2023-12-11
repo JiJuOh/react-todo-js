@@ -1,15 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import DefaultLayout from './layouts/DefaultLayout'
+import TodoHeader from './components/todos/TodoHeader'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </>
+    <DefaultLayout>
+      <div>
+        <header>
+          <div className="flex justify-center">
+            <a to="/">
+              <h1 className='py-8 text-red-200 max-w-max text-7xl'>todos</h1>
+            </a>
+          </div>
+        </header>
+        <section>
+          <TodoHeader />
+          {/* <TodoBody.jsx /> */}
+        </section>
+      </div>
+    </DefaultLayout>
   )
 }
 
