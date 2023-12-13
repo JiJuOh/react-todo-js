@@ -4,7 +4,7 @@ import Modal from '@/components/ui/Modal';
 import { createPortal } from 'react-dom';
 import TodoForm from './TodoForm';
 
-const TodoHeader = ({ onAdd }) => {
+const TodoHeader = ({ onAdd, category, onFilter }) => {
   const [isOpen, open] = useState(false);
   const openModal = () => open(true);
   const closeModal = () => open(false);

@@ -1,7 +1,7 @@
 import React from 'react'
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
 
-const TodoFilter = () => {
+const TodoFilter = ({ category, onFilter }) => {
 
   return (
     <select className="p-2 text-gray-100 bg-gray-800 rounded"
