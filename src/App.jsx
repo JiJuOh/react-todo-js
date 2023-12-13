@@ -51,6 +51,15 @@ const App = () => {
     setTodos(updatedTodos);
   }
 
+  const deleteTodoHandler = (id) => {
+    // setTodos(const filteredTodos = todos.filter(todo => todo.id !== id))
+
+    const filteredTodos = todos.filter(todo => todo.id !== id);
+    console.log(filteredTodos);
+
+    setTodos(filteredTodos);
+  }
+
   return (
     <DefaultLayout>
       <div>
@@ -63,7 +72,7 @@ const App = () => {
         </header>
         <section>
           <TodoHeader onAdd={addTodoHandler}/>
-          <TodoBody todos={todos} onUpdate={updateTodoHandler}/>
+          <TodoBody todos={todos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
         </section>
       </div>
     </DefaultLayout>
