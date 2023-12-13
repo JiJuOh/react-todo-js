@@ -26,6 +26,7 @@ const dummyTodos = [
 
 const App = () => {
   const [todos, setTodos] = useState(dummyTodos);
+  const [selectedCategory, setFilter] = useState('ALL');
 
   const addTodoHandler = ({ title, summary, category }) => {
     const newTodo = {
@@ -46,7 +47,7 @@ const App = () => {
     // todos = [{React~}, {점심~}, {커피~}]
     // 첫 번째 순회: todo = {React~}  -> updatedTodos - [{Vue공부하기}]
     // 두 번째 순회: todo = {점심~}  -> updatedTodos - [{Vue공부하기}, {점심~}]
-    const updatedTodos = todos.map(todo => todo.id === updateTodo.id ? { ...updateTodo } : todo);
+    const updatedTodos = todos.map(todo => todo.id === updateTodo.id ? updateTodo : todo);
     
     setTodos(updatedTodos);
   }
@@ -60,6 +61,11 @@ const App = () => {
     setTodos(filteredTodos);
   }
 
+  const filterTodos = (todos, selectedCategory) => selectedCategory === 'ALL' ? todos : todos.filter(todo => todo.category === selectedCategory);
+
+  // 필터링된 todos
+  const filteredTodos = filterTodos(todos, selectedCategory);
+
   return (
     <DefaultLayout>
       <div>
@@ -71,8 +77,8 @@ const App = () => {
           </div>
         </header>
         <section>
-          <TodoHeader onAdd={addTodoHandler}/>
-          <TodoBody todos={todos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
+        <TodoHeader onAdd={addTodoHandler} category={selectedCategory} onFilter={setFilter} />
+        <TodoBody todos={filteredTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler} />
         </section>
       </div>
     </DefaultLayout>
