@@ -8,6 +8,8 @@ const TodoHeader = ({ onAdd }) => {
   const [isOpen, open] = useState(false);
   const openModal = () => open(true);
   const closeModal = () => open(false);
+
+  
   
   return (
     <div className="flex items-center justify-between mb-2" id="task-control">
@@ -18,7 +20,8 @@ const TodoHeader = ({ onAdd }) => {
     </button>
     {isOpen && createPortal(
       <Modal onClose={closeModal}>
-        <TodoForm onAdd={onAdd} onClose={closeModal}/>
+        {/* <TodoForm onAddOrUpdate={onAdd} onClose={closeModal}/> */}
+        <TodoForm onAddOrUpdate={onAdd} onClose={closeModal}>New Todo</TodoForm>
       </Modal>, 
       document.body)}
     <TodoFilter />

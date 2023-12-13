@@ -41,6 +41,16 @@ const App = () => {
     setTodos(updatedTodos);
   }
 
+  const updateTodoHandler = (updateTodo) => {
+
+    // todos = [{React~}, {점심~}, {커피~}]
+    // 첫 번째 순회: todo = {React~}  -> updatedTodos - [{Vue공부하기}]
+    // 두 번째 순회: todo = {점심~}  -> updatedTodos - [{Vue공부하기}, {점심~}]
+    const updatedTodos = todos.map(todo => todo.id === updateTodo.id ? { ...updateTodo } : todo);
+    
+    setTodos(updatedTodos);
+  }
+
   return (
     <DefaultLayout>
       <div>
@@ -53,7 +63,7 @@ const App = () => {
         </header>
         <section>
           <TodoHeader onAdd={addTodoHandler}/>
-          <TodoBody todos={todos}/>
+          <TodoBody todos={todos} onUpdate={updateTodoHandler}/>
         </section>
       </div>
     </DefaultLayout>
