@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
+import { createPortal } from 'react-dom';
 import { TODO_CATEGORY_ICON } from '@/constants/icon' // src/constants/icon과 동일
 import IconButton from '@/components/ui/buttons/IconButton'
-import { createPortal } from 'react-dom';
 import Modal from '@/components/ui/Modal';
 import TodoForm from './TodoForm';
 import { TodoDispatchContext } from '@/contexts/TodoContext';

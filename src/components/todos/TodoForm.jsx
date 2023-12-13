@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
 import { enteredTodoFormIsNotEmpty } from '@/utils/utils';
-import { TodoDispatchContext } from '@/contexts/TodoContext';
+import { useTodosDispatch } from '@/contexts/TodoContext';
 
 const TodoForm = ({ onClose, children, todo }) => {
 
@@ -12,7 +12,7 @@ const TodoForm = ({ onClose, children, todo }) => {
     const [category, setCategory] = useState(isNewTodoForm(children) ? 'TODO' : todo.category);
     const [isFormInvalid, setInvalid] = useState(true);
 
-    const dispatch = useContext(TodoDispatchContext); // dispatch 컨텍스트를 사용하겠다
+    const dispatch = useTodosDispatch(); // dispatch 컨텍스트를 사용하겠다
 
     const addOrUpdateTodoHandler = () => {
         if (isNewTodoForm(children)) {
