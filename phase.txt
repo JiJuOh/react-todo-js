@@ -92,3 +92,9 @@ phase1. Todo CRUD 기능 구현
 
     #1-7. Todo 필터링 기능 구현
         #1-7-1. 우측 상단 선택박스로 카테고리에 맞게 필터링 되도록 구현
+
+phase2. 리팩토링
+
+    #2-1. useReducer, Context API 적용
+
+    #2-2. ContextAPI를 App.jsx에서 분리

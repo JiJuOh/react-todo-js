@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { createContext, useReducer, useState } from 'react'
 import DefaultLayout from './layouts/DefaultLayout'
 import TodoHeader from './components/todos/TodoHeader'
 import TodoBody from './components/todos/TodoBody'
+import { TodoContext, TodoDispatchContext } from './contexts/TodoContext';
 
 const dummyTodos = [
   {
@@ -22,48 +23,32 @@ const dummyTodos = [
     summary: '커피를 마신다.',
     category: 'DONE',
   }
-]
+];
+
+const reducer = (todos, action) => {
+  console.log(action);
+
+  switch (action.type) {
+    case 'ADD': 
+      return [...todos, action.newTodo];
+
+    case 'UPDATE': 
+      const { updateTodo } = action;
+      return todos.map(todo => todo.id === updateTodo.id ? { ...updateTodo } : todo);
+
+    case 'DELETE': 
+      const { id } = action;
+      return todos.filter(todo => todo.id !== id);
+  }
+
+}
 
 const App = () => {
-  const [todos, setTodos] = useState(dummyTodos);
+  const [todos, dispatch] = useReducer(reducer, dummyTodos);
   const [selectedCategory, setFilter] = useState('ALL');
 
-  const addTodoHandler = ({ title, summary, category }) => {
-    const newTodo = {
-      id: self.crypto.randomUUID(),
-      title,
-      summary,
-      category
-    };
-
-    // ...todos -> {React}, {점심}, {커피..}
-    // newTodo -> {새로운 todo 데이터..}
-    const updatedTodos = [...todos, newTodo];
-    setTodos(updatedTodos);
-  }
-
-  const updateTodoHandler = (updateTodo) => {
-
-    // todos = [{React~}, {점심~}, {커피~}]
-    // 첫 번째 순회: todo = {React~}  -> updatedTodos - [{Vue공부하기}]
-    // 두 번째 순회: todo = {점심~}  -> updatedTodos - [{Vue공부하기}, {점심~}]
-    const updatedTodos = todos.map(todo => todo.id === updateTodo.id ? updateTodo : todo);
-    
-    setTodos(updatedTodos);
-  }
-
-  const deleteTodoHandler = (id) => {
-    // setTodos(const filteredTodos = todos.filter(todo => todo.id !== id))
-
-    const filteredTodos = todos.filter(todo => todo.id !== id);
-    console.log(filteredTodos);
-
-    setTodos(filteredTodos);
-  }
-
+  // Todo 필터링 기능
   const filterTodos = (todos, selectedCategory) => selectedCategory === 'ALL' ? todos : todos.filter(todo => todo.category === selectedCategory);
-
-  // 필터링된 todos
   const filteredTodos = filterTodos(todos, selectedCategory);
 
   return (
@@ -77,8 +62,12 @@ const App = () => {
           </div>
         </header>
         <section>
-        <TodoHeader onAdd={addTodoHandler} category={selectedCategory} onFilter={setFilter} />
-        <TodoBody todos={filteredTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler} />
+        <TodoContext.Provider value={todos}>
+          <TodoDispatchContext.Provider value={dispatch}>
+            <TodoHeader category={selectedCategory} onFilter={setFilter} />
+            <TodoBody todos={filteredTodos} />
+          </TodoDispatchContext.Provider>
+        </TodoContext.Provider>  
         </section>
       </div>
     </DefaultLayout>
